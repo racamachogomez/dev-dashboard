@@ -61,23 +61,23 @@ import {
 
 
 
-import { FirstPageComponent } from './first-page/first-page.component';
-import { SecondPageComponent } from './second-page/second-page.component';
-import { ThirdPageComponent } from './third-page/third-page.component';
+import { NXIDashboardComponent } from './nxi-dashboard/nxi-dashboard.component';
+import { NXIDevelopersComponent } from './nxi-developers/nxi-developers.component';
+import { NXIProjectsComponent } from './nxi-projects/nxi-projects.component';
 
 const appRoutes: Routes = [
-  { path: 'first-page', component: FirstPageComponent},
-  { path: 'second-page', component: SecondPageComponent},
-  { path: 'third-page', component: ThirdPageComponent}
+  { path: 'nxi-dashboard', component: NXIDashboardComponent},
+  { path: 'nxi-developers', component: NXIDevelopersComponent},
+  { path: 'nxi-projects', component: NXIProjectsComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     MyNavComponent,
-    FirstPageComponent,
-    SecondPageComponent,
-    ThirdPageComponent,
+    NXIDashboardComponent,
+    NXIDevelopersComponent,
+    NXIProjectsComponent,
    
 
   ],

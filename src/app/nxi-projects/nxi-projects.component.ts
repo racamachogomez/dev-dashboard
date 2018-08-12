@@ -32,12 +32,12 @@ const ELEMENT_DATA: Element[] = [
 ];
 
 @Component({
-  selector: 'app-third-page',
-  templateUrl: './third-page.component.html',
-  styleUrls: ['./third-page.component.css']
+  selector: 'app-nxi-projects',
+  templateUrl: './nxi-projects.component.html',
+  styleUrls: ['./nxi-projects.component.css']
 })
 
-export class ThirdPageComponent implements OnInit {
+export class NXIProjectsComponent implements OnInit {
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   constructor() { }
