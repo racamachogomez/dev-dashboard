@@ -10,7 +10,7 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
   styleUrls: ['./nxi-dashboard.component.css']
 })
 export class NXIDashboardComponent implements OnInit {
-  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
+  displayedColumns: string[] = ['created', 'state', 'number', 'title', 'author'];
   exampleDatabase: ExampleHttpDao | null;
   data: GithubIssue[] = [];
 
@@ -65,6 +65,7 @@ export interface GithubIssue {
   number: string;
   state: string;
   title: string;
+  author: string;
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
