@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 
@@ -12,7 +12,9 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 export class NXIDashboardComponent implements OnInit {
   displayedColumns: string[] = ['created', 'state', 'number', 'title', 'author'];
   exampleDatabase: ExampleHttpDao | null;
-  data: GithubIssue[] = [];
+ // data: GithubIssue[] = [];
+ 
+  data: MatTableDataSource<GithubIssue>;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -22,6 +24,14 @@ export class NXIDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private http: HttpClient) {}
+
+  applyFilter(filterValue: string) {
+    this.data.filter = filterValue.trim().toLowerCase();
+
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+  }
 
   ngOnInit() {
     this.exampleDatabase = new ExampleHttpDao(this.http);
@@ -51,7 +61,7 @@ export class NXIDashboardComponent implements OnInit {
           this.isRateLimitReached = true;
           return observableOf([]);
         })
-      ).subscribe(data => this.data = data);
+      ).subscribe(data => this.data = new MatTableDataSource(data));
   }
 }
 
@@ -79,4 +89,5 @@ export class ExampleHttpDao {
 
     return this.http.get<GithubApi>(requestUrl);
   }
+ 
 }
