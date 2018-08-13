@@ -36,11 +36,11 @@ table {
 .mat-column-number,
 .mat-column-state,
 .mat-column-author {
-  max-width: 64px;
+  max-width: 60px;
 }
 
 .mat-column-created {
-  max-width: 124px;
+  max-width: 120px;
 }
 
 

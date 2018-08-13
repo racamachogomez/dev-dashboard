@@ -9,13 +9,13 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
   templateUrl: './nxi-dashboard.component.html',
   styleUrls: ['./nxi-dashboard.component.css']
 })
-export class NXIDashboardComponent implements OnInit {
-  displayedColumns: string[] = ['author','commits','created', 'state', 'number', 'title' ];
+export class NXIDashboardComponent1 implements OnInit {
+  displayedColumns: string[] = ['created', 'state', 'number', 'title', 'author'];
   exampleDatabase: ExampleHttpDao | null;
  // data: GithubIssue[] = [];
  
   data: MatTableDataSource<GithubIssue>;
-
+  dataCommits: MatTableDataSource<CommitsByAuthor>;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -33,7 +33,14 @@ export class NXIDashboardComponent implements OnInit {
       this.paginator.firstPage();
     }
   }
- 
+  ///TODO: Count the developers an put another column
+  countDevelopers(filterValue: string) {
+    this.data.filter = filterValue.trim().toLowerCase();
+  
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+  }
 
   ngOnInit() {
     this.exampleDatabase = new ExampleHttpDao(this.http);
@@ -63,45 +70,11 @@ export class NXIDashboardComponent implements OnInit {
           this.isRateLimitReached = true;
           return observableOf([]);
         })
-      ).subscribe(data => 
-        {
-         // const users = Array.from({length: 100}, (_, k) => createNewUser(data));
-        this.data = new MatTableDataSource(this.countDevelopers(data));
-        }
-      );
-  }  
-   ///TODO: Count the developers an put another column
-   countDevelopers(data: GithubIssue[]) {
-   // this.data.filter = filterValue.trim().toLowerCase();
-   const otherArray: String[] = [ 'ssonnenwald','crisbeto','sorterir','ganeshkbhat'];
-
-  // const otherArray = new Array <String>[]; 
-   const filtered = data.filter(x => otherArray.includes(x.author));
-   
-   console.log("Result ric : "+filtered)
- 
-    return data;
+      ).subscribe(data => this.data = new MatTableDataSource(data));
   }
 }
 
-export interface UserData {
-  name: string;
-  commits: string;
- 
-}
-/** Builds and returns a new User. */
-function createNewUser(data: GithubIssue[]): UserData {
-  const name ='Ricardo';
-   data.forEach(element => {
-     
-   });
-  return {
 
-    name: name,
-    commits:'5'
-    
-  };
-}
 
 export interface GithubApi {
   items: GithubIssue[];
@@ -113,6 +86,11 @@ export interface GithubIssue {
   number: string;
   state: string;
   title: string;
+  author: string;
+  
+}
+
+export interface CommitsByAuthor {
   author: string;
   commits: string;
 }
