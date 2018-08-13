@@ -71,14 +71,14 @@ export class NXIDashboardComponent implements OnInit {
       );
   }  
    ///TODO: Count the developers an put another column
-   countDevelopers(data: GithubIssue[]) {
+   countDevelopers(data: any[]) {
    // this.data.filter = filterValue.trim().toLowerCase();
-   const otherArray: String[] = [ 'ssonnenwald','crisbeto','sorterir','ganeshkbhat'];
-
+   //const otherArray: String[] = [ 'ssonnenwald','crisbeto','sorterir','ganeshkbhat'];
+   const otherArray: String[] = [ 'crisbeto'];
   // const otherArray = new Array <String>[]; 
-   const filtered = data.filter(x => otherArray.includes(x.author));
+   const filtered = data.filter(row => otherArray.includes(row.user.login));
    
-   console.log("Result ric : "+filtered)
+   console.log("Result ric : "+filtered.length)
  
     return data;
   }
